@@ -177,7 +177,7 @@
     /// <returns></returns>
     private string FilterTargetPath(string targetPath)
     {
-      string filteredTargetPath = string.Empty;
+      var filteredTargetPath = new List<string>();
 
       var paths = targetPath.Split('&');
 
@@ -187,11 +187,16 @@
 
         if (!KeysToIgnore.Contains(key, StringComparer.InvariantCultureIgnoreCase))
         {
-          filteredTargetPath += string.Join("&", path);
+          filteredTargetPath.Add(path);
         }
       }
 
-      return filteredTargetPath;
+      if (filteredTargetPath.Count > 0)
+      {
+        return string.Join("&", filteredTargetPath);
+      }
+
+      return string.Empty;
     }
 
     #endregion
